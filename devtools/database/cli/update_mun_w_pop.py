@@ -11,25 +11,25 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logger = logging.getLogger('update-pop')
+logger = logging.getLogger("update-pop")
 
 
 try:
     conn = psycopg2.connect(
         "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
-            os.getenv('PSQL_HOST'),
-            os.getenv('PSQL_PORT'),
-            os.getenv('PSQL_DB'),
-            os.getenv('PSQL_USER'),
-            os.getenv('PSQL_PASSWORD'),
+            os.getenv("PSQL_HOST"),
+            os.getenv("PSQL_PORT"),
+            os.getenv("PSQL_DB"),
+            os.getenv("PSQL_USER"),
+            os.getenv("PSQL_PASSWORD"),
         )
     )
     cur = conn.cursor()
 except Exception as e:
-    logger.error('Unable to connect to Postgresql: {}'.format(e))
+    logger.error("Unable to connect to Postgresql: {}".format(e))
 
 df = pd.read_csv(
-    'utilities/csv/POP2022_Municipios_Edit.csv', header=0, sep=','
+    "utilities/csv/POP2022_Municipios_Edit.csv", header=0, sep=","
 )
 
 
@@ -39,4 +39,4 @@ for i, row in df.iterrows():
 
 conn.commit()
 cur.close()
-logger.warning('Update successful in database!')
+logger.warning("Update successful in database!")

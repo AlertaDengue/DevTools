@@ -4,12 +4,12 @@
 
 # Dump database
 dump_dbschemas: # create initials schemas and tables
-	bash main/database/scripts/dump_database.sh
+	bash devtools/database/scripts/dump_database.sh
 
 
 # Create database and import schemas
 create_dbschemas: # create initials schemas and tables
-	bash main/database/scripts/create_schemas.sh
+	bash devtools/database/scripts/create_schemas.sh
 
 # Convert and save geopandas to JSON
 get_geosbr:

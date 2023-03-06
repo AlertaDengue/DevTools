@@ -2,7 +2,8 @@
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv
+
+from dotenv import find_dotenv, load_dotenv
 
 load_dotenv(find_dotenv())
 
@@ -17,6 +18,3 @@ PSQL_URI = {
     "host": os.getenv("PSQL_HOST"),
     "port": os.getenv("PSQL_PORT"),
 }
-
-
-

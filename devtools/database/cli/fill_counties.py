@@ -7,9 +7,10 @@ from os.path import abspath, dirname
 from os.path import join as join_path
 
 import geojson
+
 # from crawlclima.redemet.models import counties_save
-from main.database.cli.initials import initials
-from main.database.settings import GEOJSON_PATH
+from devtools.database.cli.initials import initials
+from devtools.database.settings import GEOJSON_PATH
 
 # logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger("fill_counties")
@@ -17,7 +18,6 @@ logger = logging.getLogger("fill_counties")
 
 @functools.lru_cache(maxsize=None)
 def uf_geojson(UF: str):
-
     filename = f"{GEOJSON_PATH}/{UF}-municipalities.json"
 
     return geojson.load(open(filename, "r"))

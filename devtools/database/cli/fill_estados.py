@@ -5,8 +5,7 @@ import os
 
 import geojson
 import psycopg2
-
-from main.database.settings import GEOJSON_PATH, PSQL_URI
+from devtools.database.settings import GEOJSON_PATH, PSQL_URI
 
 
 def load_geojson(fname):

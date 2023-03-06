@@ -20,7 +20,7 @@ classifiers = [  #! Update me
 ]
 
 packages = [
-    { include = "main" },
+    { include = "devtools" },
 ]
 
 [tool.poetry.dependencies]

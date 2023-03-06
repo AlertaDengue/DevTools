@@ -10,4 +10,4 @@ CURRENT_DATE=$(date -I)
 
 
 echo ">>> [ II ] Starting the dump with schemas for dengue database... <<<"
-PGPASSWORD="$PSQL_PASSWORD" pg_dump --host "$PSQL_HOST" --username "$PSQL_USER" --port 5432 -s --compress=1 -f "main/database/schemas/${CURRENT_DATE}.schemas.dengue.sql.gz" "$PSQL_USER"
+PGPASSWORD="$PSQL_PASSWORD" pg_dump --host "$PSQL_HOST" --username "$PSQL_USER" --port 5432 -s --compress=1 -f "devtools/database/schemas/${CURRENT_DATE}.schemas.dengue.sql.gz" "$PSQL_USER"

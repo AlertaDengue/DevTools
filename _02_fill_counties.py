@@ -1,4 +1,4 @@
-from devtools.database.cli.fill_counties import uf_geojson
+from devtools.database.cli.fill_counties import uf_geojson, county_polygon
 
 
 def test_uf_geojson():
@@ -24,3 +24,10 @@ def test_uf_geojson():
     assert (
         return_uf_geojson["features"][67]["properties"] == expected_feat_prop
     )
+
+
+def test_county_polygon():
+    # dd = county_polygon("RJ", 3304557)
+
+    assert dd == 0
+    pass

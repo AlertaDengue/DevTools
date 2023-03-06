@@ -23,14 +23,14 @@ def uf_geojson(UF: str):
     return geojson.load(open(filename, "r"))
 
 
-# def county_polygon(uf, county_code):
-#     for feature in uf_geojson(uf)["features"]:
-#         if feature["properties"].get("code_muni") == int(county_code):
-#             return geojson.dumps(feature)
-#     else:
-#         logging.warning(
-#             f"{county_code} is not in this geojson {uf}, run get_geosbr.py first..."
-#         )
+def county_polygon(uf, county_code):
+    for feature in uf_geojson(uf)["features"]:
+        if feature["properties"].get("code_muni") == int(county_code):
+            return geojson.dumps(feature)
+    else:
+        logging.warning(
+            f"{county_code} is not in this geojson {uf}, run get_geosbr.py first..."
+        )
 
 
 # def to_row(county):

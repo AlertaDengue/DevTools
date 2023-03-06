@@ -14,4 +14,3 @@ dependencies:
   - pip:
     - geobr
     - python-metar
-

@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-PSQL_CMD="psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER""
+PSQL_CMD="psql --host "$PSQL_HOST"  -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres"
 
 if [[ "${PG_RESTORE_STAGING}" = "dumps" ]]
 then
@@ -12,7 +12,7 @@ then
 elif [[ "${PG_RESTORE_STAGING}" = "schemas" ]]
 then
     echo "[II] creating ${PG_RESTORE_STAGING} for the demo database."
-    psql -d ${PSQL_DB} < /"${PG_RESTORE_STAGING}"/schemas_dengue.sql
+    PGPASSWORD="$PSQL_PASSWORD" psql --host "$PSQL_HOST" --username "$PSQL_USER" --port ${PSQL_PORT} --dbname ${PSQL_DB} < devtools/database/"${PG_RESTORE_STAGING}"/schemas_dengue.sql
 else
     echo "[ERR]: ${PG_RESTORE_STAGING} is not a valid dump file! You have to choose between schemas or dumps"
 fi

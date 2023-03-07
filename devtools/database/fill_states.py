@@ -5,7 +5,9 @@ import os
 
 import geojson
 import psycopg2
-from devtools.database.settings import GEOJSON_PATH, PSQL_URI
+from devtools.database.settings import GEOS_PATH, PSQL_URI
+
+logger = logging.getLogger("fill_estados")
 
 
 def load_geojson(fname):
@@ -13,10 +15,11 @@ def load_geojson(fname):
         return geojson.load(f)
 
 
-if __name__ == "__main__":
+def fill_states():
+    """"""
     conn = psycopg2.connect(**PSQL_URI)
     with conn.cursor() as cur:
-        for fname in glob.glob(os.path.join(GEOJSON_PATH, "*-state.json")):
+        for fname in glob.glob(os.path.join(GEOS_PATH, "*-state.json")):
             print("Processing {}".format(fname))
             uf = os.path.split(fname)[1].split("-")[0]
             geo_json = load_geojson(fname)
@@ -25,7 +28,11 @@ if __name__ == "__main__":
             geocodigo = properties["CD_GEOCODU"]
             regiao = properties["NM_REGIAO"]
             cur.execute(
-                'INSERT INTO "Dengue_global".estado (uf, nome, regiao, geocodigo, geojson) VALUES (%s,%s,%s,%s, %s)',
+                """
+                    INSERT INTO "Dengue_global".estado
+                        (uf, nome, regiao, geocodigo, geojson)
+                        VALUES (%s,%s,%s,%s, %s)
+                """,
                 (
                     uf,
                     nome,
@@ -36,3 +43,7 @@ if __name__ == "__main__":
             )
         conn.commit()
         logger.warning("All fields were updated!")
+
+
+if __name__ == "__main__":
+    fill_states()

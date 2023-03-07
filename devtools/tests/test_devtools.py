@@ -1,36 +1,32 @@
-import unittest
 import json
-import os
+import unittest
 from pathlib import Path
 
-import pytest
+from devtools.database.cli.fill_counties import uf_geojson
 from devtools.database.cli.get_geosbr import np, read_municipality
-from devtools.database.cli.fill_counties import uf_geojson, county_polygon
-from devtools.database.cli.initials import initials
+from devtools.database.data.initials import initials
 from devtools.database.settings import GEOJSON_PATH
 from numpy import int64
 
 
-
 class TestGetGeosBr(unittest.TestCase):
-
     def setUp(self):
         # devtools.testing = True
         self.UF = initials.get("Rio de Janeiro").upper()
 
     def test_initials(self):
-        """
-        """
+        """ """
 
-        self.assertEqual(self.UF, "RJ", msg=f"expected 'RJ' ")
+        self.assertEqual(self.UF, "RJ", msg="expected 'RJ' ")
 
     def test_get_geobr(self):
-        """
-        """
+        """ """
 
         # Get data from GeoBR API
         df = read_municipality(code_muni=self.UF, year=2020)
-        self.assertEqual(df.shape, (92, 8), msg=f"{df.shape}, is not a good shape")
+        self.assertEqual(
+            df.shape, (92, 8), msg=f"{df.shape}, is not a good shape"
+        )
 
         # Cast columns
         cols = ["code_muni", "code_state", "code_region"]
@@ -56,14 +52,12 @@ class TestGetGeosBr(unittest.TestCase):
 
 
 class TestFillCounties(unittest.TestCase):
-
     def setUp(self):
         # devtools.testing = True
         self.UF = initials.get("Rio de Janeiro").upper()
 
     def test_uf_geojson(self):
-        """
-        """
+        """ """
 
         return_uf_geojson = uf_geojson(self.UF)
 
@@ -81,19 +75,21 @@ class TestFillCounties(unittest.TestCase):
             return_uf_geojson["features"][67]["properties"], expected_feat_prop
         )
 
-
     def test_county_polygon(self):
-        """
-        """
+        """ """
 
         list_of_county_codes = []
 
         for feature in uf_geojson("RJ")["features"]:
             list_of_county_codes.append(feature["properties"].get("code_muni"))
-        
+
         self.assertIn(int(3304557), list_of_county_codes)
 
 
+class TestUpdateWorldPop(unittest.TestCase):
+    def test_update_population():
+        pass
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -2,7 +2,7 @@ import json
 import logging
 
 import numpy as np
-from devtools.database.cli.initials import initials
+from devtools.database.data.initials import initials
 from devtools.database.settings import GEOJSON_PATH
 from geobr import read_municipality
 

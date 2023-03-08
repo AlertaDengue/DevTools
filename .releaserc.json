@@ -61,7 +61,7 @@
           "assets": [
             "pyproject.toml",
             "CHANGELOG.md",
-            "devtools/__init__.py"
+            "database/__init__.py"
           ],
           "message": "chore(release): ${nextRelease.version}"
         }

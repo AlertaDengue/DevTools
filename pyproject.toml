@@ -18,6 +18,7 @@ SQLAlchemy = "^1.4.44"
 pandas = "^1.5.2"
 loguru = "^0.6.0"
 geobr = "^0.2.0"
+python-dotenv = "^1.0.0"
 
 
 [tool.poetry.dev-dependencies]

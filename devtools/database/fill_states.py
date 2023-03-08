@@ -15,7 +15,7 @@ def load_geojson(fname):
 
 
 def fill_states():
-    """"""
+    """ """
     conn = psycopg2.connect(**PSQL_URI)
     with conn.cursor() as cur:
         for fname in GEOS_PATH.glob("**/*"):

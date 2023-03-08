@@ -11,6 +11,7 @@ logger = logging.getLogger("get_geosbr")
 
 
 def get_geobr():
+    """ """
     for k, UF in initials.items():
         ufs = UF.upper()
         #

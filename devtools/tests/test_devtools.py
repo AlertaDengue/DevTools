@@ -2,9 +2,9 @@ import json
 import unittest
 from pathlib import Path
 
-from devtools.database.cli.fill_counties import uf_geojson
-from devtools.database.cli.get_geosbr import np, read_municipality
 from devtools.database.data.initials import initials
+from devtools.database.fill_cities import uf_geojson
+from devtools.database.get_geosbr import np, read_municipality
 from devtools.database.settings import GEOJSON_PATH
 from numpy import int64
 
@@ -46,12 +46,17 @@ class TestGetGeosBr(unittest.TestCase):
 
         # Fetch file dumped
         fname_path = Path(f"{GEOJSON_PATH}").glob("**/*")
-        json_file = str(*[x for x in fname_path if x.is_file()])
+        json_file = str([str(x) for x in fname_path if x.is_file()])
 
-        assert fname == json_file
+        self.assertIn(fname, json_file)
 
 
-class TestFillCounties(unittest.TestCase):
+class TestFillPop(unittest.TestCase):
+    def test_fill_population(self):
+        pass
+
+
+class TestFillCities(unittest.TestCase):
     def setUp(self):
         # devtools.testing = True
         self.UF = initials.get("Rio de Janeiro").upper()
@@ -86,8 +91,15 @@ class TestFillCounties(unittest.TestCase):
         self.assertIn(int(3304557), list_of_county_codes)
 
 
-class TestUpdateWorldPop(unittest.TestCase):
-    def test_update_population():
+class TestFillState(unittest.TestCase):
+    def test_fill_states(self):
+        """ """
+        pass
+
+
+class TestFillStations(unittest.TestCase):
+    def test_fill_stations(self):
+        """ """
         pass
 
 

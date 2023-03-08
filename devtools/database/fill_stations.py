@@ -8,8 +8,7 @@ logger = logging.getLogger("fill_stations")
 
 
 def fill_stations():
-    """"""
-
+    """ """
     data_csv = BASE_DIR / "data/airport_stations_seed.csv"
     rows = csv.DictReader(open(data_csv))
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import glob
 import logging
 import os
 
@@ -19,8 +18,8 @@ def fill_states():
     """"""
     conn = psycopg2.connect(**PSQL_URI)
     with conn.cursor() as cur:
-        for fname in glob.glob(os.path.join(GEOS_PATH, "*-state.json")):
-            print("Processing {}".format(fname))
+        for fname in GEOS_PATH.glob("**/*"):
+            logger.warning(f"Processing {fname}")
             uf = os.path.split(fname)[1].split("-")[0]
             geo_json = load_geojson(fname)
             properties = geo_json["features"][0]["properties"]

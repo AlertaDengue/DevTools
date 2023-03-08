@@ -63,7 +63,7 @@ jobs:
       run: envsubst < .env.tpl > .env
 
     - name: Prepare database and directories
-      run: make create-dbschemas
+      run: make prepare-db-data
 
     - name: Download JSON data
       run: make get-geosbr

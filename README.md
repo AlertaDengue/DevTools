@@ -3,16 +3,16 @@
 ##### -- Requirements --
 ```bash
 #
-mamba env create -f conda/dev.yaml 
-``` 
+mamba env create -f conda/dev.yaml
+```
 Then
 ```bash
 #
-poetry install 
-``` 
+poetry install
+```
 
 ##### -- Makefile Commands --
-```  
+```
 dump-dbschemas          Dump database to sql file
 create-dbschemas        Create database and import schemas
 get-geosbr              Download spatial datasets and convert to JSON
@@ -22,4 +22,4 @@ run-fill-states         Read JSON files by States and insert georeferenced data 
 run-fill-stations       Import the weather station code from CSV file
 test-all                Make tests
 clean                   Clean all artifacts
-``` 
+```

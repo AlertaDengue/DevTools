@@ -62,7 +62,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
@@ -76,7 +76,7 @@ CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
@@ -168,7 +168,7 @@ BEGIN
     IF epi_year_week < 190000 THEN
         RAISE EXCEPTION 'INVALID epi_year_week value.';
     END IF;
-    
+
     epiyear = epi_year_week/100;
     epiweek = CAST((epi_year_week/100.0) % 1 * 100 AS INT);
     date_1 = CAST(epiyear::varchar || '-01-01' AS DATE);
@@ -180,8 +180,8 @@ BEGIN
     ELSE
         epi_interval = ((7-date_1_w)::varchar || ' days')::interval;
 	epiweek_day_1 = date_1 + epi_interval;
-    END IF; 
-    
+    END IF;
+
     epi_interval = ((7 * (epiweek-1) + weekday) || ' days')::interval;
     RETURN epiweek_day_1 + epi_interval;
 END;

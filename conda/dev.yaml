@@ -2,10 +2,11 @@ name: devtools
 channels:
   - conda-forge
 dependencies:
+  - geojson
+  - make
   - python
   - poetry
   - psycopg2-binary
-  - geojson
   - pip
   - pip:
     - geobr

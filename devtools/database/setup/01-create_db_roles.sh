@@ -13,7 +13,7 @@ for dbname in "${PSQL_DB}" "${PSQL_DBF}";  do
 
 done
 
-for dbusers in "$POSTGRES_USER" ""Read_only"" "Dengue" "administrador" "dengue" "infodenguedev" "forecast"; do
+for dbusers in "dengueadmin" '"Read_only"' '"Dengue"' "administrador" "dengue" "infodenguedev" "forecast"; do
   # PostgreSQL create ROLE
   echo "SELECT 'CREATE USER "${dbusers}"'
     WHERE NOT EXISTS (

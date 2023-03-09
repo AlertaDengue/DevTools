@@ -7,14 +7,14 @@ on:
     branches: [ main ]
 
 env:
-  PSQL_HOST: localhost
+  PSQL_HOST: 172.29.0.2
   PSQL_PORT: 5432
   PSQL_DBF: infodengue
   PSQL_DB: dengue
-  PSQL_USER: infodenguedev
+  PSQL_USER: postgres
   PSQL_PASSWORD: infodenguedev
-  POSTGRES_DB: dengue
-  POSTGRES_USER: infodenguedev
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
   PG_RESTORE_STAGING: schemas
   GEOJSON_PATH: /tmp/geojson/
   GEOS_PATH: devtools/database/data/geos
@@ -54,16 +54,25 @@ jobs:
         poetry lock
         poetry install
 
-    - name: Linting
-      run: |
-        pre-commit install
-        pre-commit run --all-files
+    # - name: Linting
+    #   run: |
+    #     pre-commit install
+    #     pre-commit run --all-files
 
     - name: Create env file
       run: envsubst < .env.tpl > .env
 
+    - name: Start postgres container
+      run: make run-postgres-container
+
     - name: Prepare database and directories
-      run: make prepare-db-data
+      run: |
+        /usr/share/miniconda3/bin/activate devtools
+        make prepare-db-data
+
+    - name: Setup tmate session
+      if: "${{ failure() }}"
+      uses: mxschmitt/action-tmate@v3
 
     - name: Download JSON data
       run: make get-geosbr

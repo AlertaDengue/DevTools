@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 from devtools.database.data.initials import initials
-from devtools.database.fill_cities import uf_geojson
+from devtools.database.fill_municipalities import uf_geojson
 from devtools.database.get_geosbr import np, read_municipality
 from devtools.database.settings import GEOJSON_PATH
 from numpy import int64

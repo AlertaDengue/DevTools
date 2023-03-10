@@ -2,7 +2,7 @@
 
 export $(cat .env | xargs)
 
-PSQL_CMD="psql --host "$PSQL_HOST"  -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres"
+PSQL_CMD="psql --host "$PSQL_HOST" -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres"
 
 # PostgreSQL create DATABASES
 for dbname in "${PSQL_DB}" "${PSQL_DBF}";  do

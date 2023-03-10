@@ -69,9 +69,7 @@ test-all: ## Make tests
 
 .PHONY: run-postgres-container
 run-postgres-container: ## Create network for CI
-	docker network create --subnet=172.29.0.0/16 devtools-network
-	docker run --net devtools-network --ip 172.29.0.2 -e POSTGRES_HOST_AUTH_METHOD=trust -d postgis/postgis
-
+	docker run -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 -d postgis/postgis
 
 .PHONY: clean
 clean: ## Clean all artifacts

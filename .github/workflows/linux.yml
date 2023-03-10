@@ -7,18 +7,17 @@ on:
     branches: [ main ]
 
 env:
-  PSQL_HOST: 172.29.0.2
+  PSQL_HOST: localhost
   PSQL_PORT: 5432
   PSQL_DBF: infodengue
   PSQL_DB: dengue
   PSQL_USER: postgres
   PSQL_PASSWORD: infodenguedev
-  POSTGRES_DB: postgres
   POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: infodenguedev
   PG_RESTORE_STAGING: schemas
   GEOJSON_PATH: /tmp/geojson/
   GEOS_PATH: devtools/database/data/geos
-
 
 jobs:
   build:

@@ -51,7 +51,7 @@ get-geosbr: ## Download spatial datasets and convert to JSON
 run-fill-municipalities: ## Read from the JSON and insert data into table for each municipality
 	python devtools/database/fill_municipalities.py
 
-.PHONY: update-mun-pop
+.PHONY: run-fill-population
 run-fill-population: ## Update population statistics from CSV file
 	python devtools/database/fill_population.py
 
@@ -59,7 +59,7 @@ run-fill-population: ## Update population statistics from CSV file
 run-fill-states: ## Read JSON files by States and insert georeferenced data in the table.
 	python devtools/database/fill_states.py
 
-.PHONY: update-run-fill-stations
+.PHONY: run-fill-stations
 run-fill-stations: ## Import the weather station code from CSV file
 	python devtools/database/fill_stations.py
 

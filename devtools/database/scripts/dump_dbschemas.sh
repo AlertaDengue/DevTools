@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 export $(cat .env | xargs)
-set -e
-
 
 PSQL_CMD="psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER""
 

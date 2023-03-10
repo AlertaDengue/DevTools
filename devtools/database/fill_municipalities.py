@@ -36,7 +36,7 @@ def to_row(county):
     name = county["Nome_Município"]
     uf = county["Nome_UF"]
     geojson = county_polygon(initials[uf], county_code)
-    logging.warning(county_code, "|", name, "|", uf)
+    print(county_code, "|", name, "|", uf)
 
     return dict(
         county_code=county_code,

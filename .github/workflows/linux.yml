@@ -54,10 +54,10 @@ jobs:
         poetry lock
         poetry install
 
-    # - name: Linting
-    #   run: |
-    #     pre-commit install
-    #     pre-commit run --all-files
+    - name: Linting
+      run: |
+        pre-commit install
+        pre-commit run --all-files
 
     - name: Create env file
       run: envsubst < .env.tpl > .env
@@ -67,15 +67,14 @@ jobs:
 
     - name: Prepare database and directories
       run: |
-        /usr/share/miniconda3/bin/activate devtools
+        conda activate devtools
         make prepare-db-data
-
-    - name: Setup tmate session
-      if: "${{ failure() }}"
-      uses: mxschmitt/action-tmate@v3
 
     - name: Download JSON data
       run: make get-geosbr
+
+    - name: Populate Dengue_global'.Municipio table
+      run: make run-fill-municipalities
 
     - name: Run tests
       run: make test-all

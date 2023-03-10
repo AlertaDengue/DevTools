@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+export $(cat .env | xargs)
 
 PSQL_CMD="psql --host "$PSQL_HOST"  -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=postgres"
 

@@ -1,0 +1,79 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PSQL_HOST: localhost
+  PSQL_PORT: 5432
+  PSQL_DBF: infodengue
+  PSQL_DB: dengue
+  PSQL_USER: postgres
+  PSQL_PASSWORD: infodenguedev
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: infodenguedev
+  PG_RESTORE_STAGING: schemas
+  GEOJSON_PATH: /tmp/geojson/
+  GEOS_PATH: devtools/database/data/geos
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        mamba-version: "*"
+        environment-file: conda/dev.yaml
+        channels: conda-forge,nodefaults
+        activate-environment: devtools
+        use-mamba: true
+        miniforge-variant: Mambaforge
+
+
+    - name: Install dependencies
+      run: |
+        poetry lock
+        poetry install
+
+    - name: Linting
+      run: |
+        pre-commit install
+        pre-commit run --all-files
+
+    - name: Create env file
+      run: envsubst < .env.tpl > .env
+
+    - name: Start postgres container
+      run: make run-postgres-container
+
+    - name: Prepare database and directories
+      run: |
+        conda activate devtools
+        make prepare-db-data
+
+    - name: Download JSON data
+      run: make get-geosbr
+
+    - name: Populate Dengue_global'.Municipio table
+      run: make run-fill-municipalities
+
+    - name: Run tests
+      run: make test-all
